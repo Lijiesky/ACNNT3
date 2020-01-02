@@ -1,6 +1,6 @@
 from fasta_reader import readFile
 import numpy as np
-import os
+import glob as glob
 def OnehotEncoding(inpStr):
     _res = []
     for base in inpStr:
@@ -121,9 +121,11 @@ def createTestData(posSample,negSample,Encodingtype):
 
 def simplifypssm(pssmdir):
     TrainTest=[]
-    listfile = os.listdir(pssmdir)
-    for eachfile in listfile:
-        with open(pssmdir + '/' + eachfile,'r') as inputpssm:
+    filelist = glob.glob(pssmdir+'/*.pssm')
+    file_num = len(filelist)
+    for i in range(file_num):
+        file = pssmdir+'/seq'+str(i+1)+'.pssm'
+        with open(file,'r') as inputpssm:
             aa = []
             filelist = inputpssm.readlines()
             for line in filelist:
